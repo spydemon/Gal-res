@@ -11,10 +11,11 @@ $form_register |= !empty($_POST['psw2'])				<< 2;
 $form_register |= !empty($_POST['address_bdd']) 	<< 3;
 $form_register |= !empty($_POST['psw_bdd'])			<< 4;
 $form_register |= !empty($_POST['username_bdd'])	<< 5;
+$form_register |= !empty($_POST['address_bdd'])		<< 6;
 //}}}
 
 //{{{If all field of the formular aren't complete. We print the formular
-if ($form_register != 0x3f) {
+if ($form_register != 0x7f) {
 	echo "Hayoï! It seems that you haven't configure your installation for the moment. <br />\nWe'll make that now, together :-)<br /><br />\n";
 	//If $form_register isn't egal to zero, it suposed that the formular was already send, but not with all the information.
 	if ($form_register != 0)
@@ -30,11 +31,14 @@ if ($form_register != 0x3f) {
 	echo "\t\t<tr><td><label for='psw2'>Password (again):</label>\t\t\t			</td><td>\t<input type='password' name='psw2' id='psw2' ";
 		if ($form_register && 1<<2) echo "value='" .htmlentities($_POST['psw2'], ENT_QUOTES). "'";
 		echo "/>\t</td></tr>\n";
+	echo "\t\t<tr><td><label for='name_bdd'>Name database:</label>\t\t\t			</td><td>\t<input type='text' name='name_bdd' id='name_bdd' ";
+		if ($form_register && 1<<6) echo "value='" .htmlentities($_POST['name_bdd'], ENT_QUOTES). "'";
+		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td><label for='address_bdd'>Address database:</label>\t\t\t	</td><td>\t<input type='text' name='address_bdd' id='address_bdd' ";
 		if ($form_register && 1<<3) echo "value='" .htmlentities($_POST['address_bdd'], ENT_QUOTES). "'";
 		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td><label for='username_bdd'>Username database:</label>\t\t\t</td><td>\t<input type='text' name='username_bdd' id='username_bdd' ";
-		if ($form_register && 1<<5) echo "value='" .htmlentities($_POST['form_register'], ENT_QUOTES). "'";
+		if ($form_register && 1<<5) echo "value='" .htmlentities($_POST['username_bdd'], ENT_QUOTES). "'";
 		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td><label for='psw_bdd'>Password database:</label>\t\t\t\t	</td><td>\t<input type='text' name='psw_bdd' id='psw_bdd' ";
 		if ($form_register && 1<<4) echo "value='" .htmlentities($_POST['psw_bdd'], ENT_QUOTES). "'";
@@ -54,7 +58,52 @@ else {
 	}
 
 	else {
-		//In a first time, we check if we can access to the database.
+		//In a first time we secure all POST datas.
+		foreach ($_POST as $key => $value)
+			$_SPOST[$key] = htmlentities($value, ENT_QUOTES);
+
+		//After, we'll check if we can access to the database.
+		try {
+			$datas = new PDO('mysql:host=' .$_SPOST['address_bdd']. ';dbname=' .$_SPOST['name_bdd'], $_SPOST['username_bdd'], $_SPOST['psw_bdd']); 
+			echo "Connection to the database seems fine. <br />\n";
+
+			//And create all things that we need in the db.
+			$create_admin_base = "CREATE TABLE galeres_admin (					pseudo 		VARCHAR(30) 	NOT NULL, 
+																								psw			VARCHAR(30)		NOT NULL,
+																								title			MEDIUMTEXT,
+																								fooder		MEDIUMTEXT,
+																								idstring		MEDIUMTEXT 		NOT NULL,
+																								piwik			MEDIUMTEXT																		) ENGINE = INNODB; ";
+
+			$create_categories_base = "CREATE TABLE galeres_categories (	id				INT 				NOT NULL	PRIMARY KEY AUTO_INCREMENT,
+																								name			MEDIUMTEXT		NOT NULL,
+																								position		INT																				) ENGINE = INNODB ;";
+
+			$create_problems_base = "CREATE TABLE galeres_problems (			id 			INT				NOT NULL	PRIMARY KEY	AUTO_INCREMENT,
+																								title			MEDIUMTEXT		NOT NULL, 
+																								symptoms		MEDIUMTEXT		NOT NULL,
+																								date			TIMESTAMP(8), 
+																								position 	INT,
+																								id_category	INT				NOT NULL,
+																								FOREIGN KEY (id_category) REFERENCES galeres_categories(id)						) ENGINE = INNODB ;";
+
+			$create_steps_base = "CREATE TABLE galeres_steps (					action		MEDIUMTEXT		NOT NULL,
+																								reaction		MEDIUMTEXT		NOT NULL,
+																								date			TIMESTAMP(8),
+																								useful		BIT,
+																								id_problem	INT				NOT NULL,
+																								FOREIGN KEY (id_problem) REFERENCES galeres_problems(id)							) ENGINE = INNODB ;";
+
+			$datas->exec($create_admin_base);
+			$datas->exec($create_categories_base);
+			$datas->exec($create_problems_base);
+			$datas->exec($create_steps_base);
+																				
+		}
+		catch (Exception $e) {
+			echo "Oooops… The connection to the database seems impossible. Check connections parameters. <br />\n";
+			echo $e->getMessage();
+		}
 	}
 
 }
