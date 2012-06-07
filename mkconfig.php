@@ -67,12 +67,12 @@ else {
 			$datas = new PDO('mysql:host=' .$_SPOST['address_bdd']. ';dbname=' .$_SPOST['name_bdd'], $_SPOST['username_bdd'], $_SPOST['psw_bdd']); 
 			echo "Connection to the database seems fine. <br />\n";
 
-			//And create all things that we need in the db.
+			//{{{And create all things that we need in the db.
 			$create_admin_base = "CREATE TABLE galeres_admin (					pseudo 		VARCHAR(30) 	NOT NULL, 
 																								psw			VARCHAR(30)		NOT NULL,
 																								title			MEDIUMTEXT,
 																								fooder		MEDIUMTEXT,
-																								idstring		MEDIUMTEXT 		NOT NULL,
+																								idstring		MEDIUMTEXT,
 																								piwik			MEDIUMTEXT																		) ENGINE = INNODB; ";
 
 			$create_categories_base = "CREATE TABLE galeres_categories (	id				INT 				NOT NULL	PRIMARY KEY AUTO_INCREMENT,
@@ -98,8 +98,30 @@ else {
 			$datas->exec($create_categories_base);
 			$datas->exec($create_problems_base);
 			$datas->exec($create_steps_base);
-																				
+			//}}} 
+
+			//{{{Now, we create the file with database connections info.
+			$config[0] = "<?php\n";
+			$config[1] = "const BDD_HOSTNAME = " . $_SPOST['name_bdd'] . "\n";
+			$config[2] = "const BDD_USERNAME = " . $_SPOST['username_bdd'] . "\n";
+			$config[3] = "const BDD_PASSWORD = " . $_SPOST['psw_bdd'] . "\n";
+			$config[4] = "?>\n";
+
+			$file = fopen('config.php', 'w');
+
+			foreach ($config as $line)
+				fwrite($file, $line);
+
+			fclose($file);
+			chmod('config.php', 004);
+			//}}}
+
+			//And finaly, we update data in the database.
+			$insertion = $datas->prepare('INSERT INTO galeres_admin (pseudo, psw) VALUES (:pseudo, :psw)');
+			$insertion->execute(array(	'pseudo' => $_SPOST['pseudo'], 
+												'psw'		=> sha1($_SPOST['psw1'])));
 		}
+
 		catch (Exception $e) {
 			echo "Oooops… The connection to the database seems impossible. Check connections parameters. <br />\n";
 			echo $e->getMessage();
