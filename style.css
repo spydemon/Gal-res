@@ -6,6 +6,37 @@ body {
 table[id='body'] {
 	margin: auto;
 	width: 100%;
+	vertical-align: top;
+}
+
+table[id='body'] td {
+	vertical-align: top;
+}
+
+td[id='nav'] h1 {
+	background-color: grey;
+	color: black;
+	font-size: 1em;
+	padding: 3px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+td[id='nav'] h1 a {
+	color : black;
+}
+
+td[id='nav'] li {
+	font-size: .8em;
+	list-style-type: none;
+}
+
+td[id='nav'] ul {
+	border-left: dashed 1px gray;
+	margin-left: 15px;
+	margin-top: 0px;
+	padding-left: 4px;
+	padding-top: 4px;
 }
 
 td[id='nav'] {
@@ -15,8 +46,26 @@ td[id='nav'] {
 	padding-right: 5px;
 }
 
-header {
+a {
+	color: gray;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a:hover {
+	color: gray;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+input, textarea {
+	background-color: black;
 	border: solid 1px grey;
+	color: grey;
+}
+
+header {
+	font-size: 2em;
 	margin: auto;
 	margin-top: 15px;
 	margin-bottom: 15px;
