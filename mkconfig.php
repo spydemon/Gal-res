@@ -68,12 +68,8 @@ else {
 			echo "Connection to the database seems fine. <br />\n";
 
 			//{{{And create all things that we need in the db.
-			$create_admin_base = "CREATE TABLE galeres_admin (					pseudo 		VARCHAR(30) 	NOT NULL, 
-																								psw			VARCHAR(30)		NOT NULL,
-																								title			MEDIUMTEXT,
-																								fooder		MEDIUMTEXT,
-																								idstring		MEDIUMTEXT,
-																								piwik			MEDIUMTEXT																		) ENGINE = INNODB; ";
+			$create_admin_base = "CREATE TABLE galeres_admin (					var_name		MEDIUMTEXT		NOT NULL,
+																								var_value	MEDIUMTEXT		NOT NULL														) ENGINE = INNODB; ";
 
 			$create_categories_base = "CREATE TABLE galeres_categories (	id				INT 				NOT NULL	PRIMARY KEY AUTO_INCREMENT,
 																								name			MEDIUMTEXT		NOT NULL,
@@ -84,6 +80,7 @@ else {
 																								symptoms		MEDIUMTEXT		NOT NULL,
 																								date			TIMESTAMP(8), 
 																								position 	INT,
+																								solved		BIT,
 																								id_category	INT				NOT NULL,
 																								FOREIGN KEY (id_category) REFERENCES galeres_categories(id)						) ENGINE = INNODB ;";
 
@@ -98,6 +95,12 @@ else {
 			$datas->exec($create_categories_base);
 			$datas->exec($create_problems_base);
 			$datas->exec($create_steps_base);
+
+			//We already add somes entries in galeres_admin
+			$entries = array('pseudo', 'psw', 'title', 'fooder', 'idstring', 'ip', 'connection', 'piwik');
+			foreach ($entries as $entry)
+				$datas->exec('INSERT INTO galeres_admin (var_name) VALUES ("' .$entry. '")');
+
 			//}}} 
 
 			//{{{Now, we create the file with database connections info.
@@ -117,9 +120,11 @@ else {
 			//}}}
 
 			//And finaly, we update data in the database.
-			$insertion = $datas->prepare('INSERT INTO galeres_admin (pseudo, psw) VALUES (:pseudo, :psw)');
-			$insertion->execute(array(	'pseudo' => $_SPOST['pseudo'], 
-												'psw'		=> sha1($_SPOST['psw1'])));
+			//$insertion = $datas->prepare('INSERT INTO galeres_admin (pseudo, psw) VALUES (:pseudo, :psw)');
+			$insertion = $datas->prepare('UPDATE galeres_admin SET var_value=:pseudo WHERE var_name="pseudo"');
+			$insertion->execute(array(	'pseudo' => $_SPOST['pseudo']));
+			$insertion = $datas->prepare('UPDATE galeres_admin SET var_value=:psw WHERE var_name="psw"');
+			$insertion->execute(array( 'psw'		=> sha1($_SPOST['psw1'])));
 		}
 
 		catch (Exception $e) {
