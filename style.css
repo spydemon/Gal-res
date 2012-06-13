@@ -40,7 +40,7 @@ td[id='nav'] ul {
 }
 
 td[id='nav'] {
-	max-width: 150px;
+	width: 250px;
 	word-wrap: break-word;
 	border-right: solid 1px grey;
 	padding-right: 5px;
