@@ -26,14 +26,6 @@ else {
 	define("CONFIG_EXIST", true);
 }
 
-//Autoloader of classes
-function chargeClass($name) {
-	require 'libs/' .$name. '.class.php';
-}
-spl_autoload_register(chargeClass);
-
-$page = new Page();
-
 echo "<DOCTYPE html>\n";
 echo "<html>\n";
 echo "\t<head>\n";
