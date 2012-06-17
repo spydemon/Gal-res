@@ -19,12 +19,11 @@ if (get_magic_quotes_gpc()) {
 
 //Verification if config.php exists. If the file doesn't exist, we have to create it and to create the database also
 if (!file_exists('config.php')) {
-	$title_page = 'Galère v1.0';
-	$config_exist = false;
+	define("CONFIG_EXIST", false);
 }
 else {
 	include('config.php');
-	$config_exist = true;
+	define("CONFIG_EXIST", true);
 }
 
 //Autoloader of classes
@@ -33,7 +32,8 @@ function chargeClass($name) {
 }
 spl_autoload_register(chargeClass);
 
-//$page = new Page();
+$page = new Page();
+
 echo "<DOCTYPE html>\n";
 echo "<html>\n";
 echo "\t<head>\n";
