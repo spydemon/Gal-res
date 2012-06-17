@@ -14,10 +14,6 @@ class Page {
 	//Infos admin
 	protected $_infos_admin;
 	protected $_values_admin;
-	//Http infos
-	protected $_http_values;
-	//User infos
-	protected $_user_infos;
 
 	public function __construct() {
 			//We catch information in the db only if it's already configured.
@@ -34,15 +30,6 @@ class Page {
 				echo "A problem with the connection to the database occures:<br />\n";
 				echo $e->getMessage(). "<br />\n";
 			}
-
-			//We also catch all content adviable in the http request.
-			$this->_http_values = new HTTPRequest();
-			
-			//And we look who is the user.
-			$this->_user_infos = new UserName($this->_values_admin, $this->_http_values);
-			if ($this->user_infos->getIsAdmin()) 
-				echo "C'est un admin.<br />";
-			else echo "Ce n'est pas un admin.<br />";
 		}
 	}
 }
