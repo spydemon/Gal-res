@@ -1,54 +1,35 @@
 <?php
+//The controler part
+include ('functions.php');
+//The view part
+include ('views.php');
+
+//Define use to know if functions are call in the index.php file or not.
+define(ROOT_CALL, true);
+
 //We remove magic quotes
 //I need this script because I don't have access to the php.ini and pass by the .htaccess file causes a 500 error.
-if (get_magic_quotes_gpc()) {
-    $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
-    while (list($key, $val) = each($process)) {
-        foreach ($val as $k => $v) {
-            unset($process[$key][$k]);
-            if (is_array($v)) {
-                $process[$key][stripslashes($k)] = $v;
-                $process[] = &$process[$key][stripslashes($k)];
-            } else {
-                $process[$key][stripslashes($k)] = stripslashes($v);
-            }
-        }
-    }
-    unset($process);
-}
+removeMagicQuotes();
 
-//Verification if config.php exists. If the file doesn't exist, we have to create it and to create the database also
-if (!file_exists('config.php')) {
-	define("CONFIG_EXIST", false);
+//We check if config.php exist, or if it the first time that the application is running.
+define(CONFIG_EXIST, check_config());
+
+if (CONFIG_EXIST) {
+	include ('config.php');
+	$db = new PDO('mysql:host=' .BDD_HOSTNAME. ';dbname=' .BDD_BDDNAME, BDD_USERNAME, BDD_PASSWORD);
+
+	//We fetch all datas in the admin database.
+	$adminInfos = fetchAdmin($db);
 }
 else {
-	include('config.php');
-	define("CONFIG_EXIST", true);
+	//If database doesn't exist, we "hardcreate" the title and footer of the page.
+	$adminInfos['title'] = 'Galère v1.0';
+	$adminInfos['fooder'] = 'I hope I\'ll survive…';
 }
 
-echo "<DOCTYPE html>\n";
-echo "<html>\n";
-echo "\t<head>\n";
-echo "\t\t<title>" .$title_page. "</title>\n";
-echo "\t\t<meta charset='UTF-8' />\n";
-echo "\t\t<link rel='stylesheet' href='style.css' />\n";
-echo "\t</head>\n";
-
-echo "\t<body>\n";
-echo "\t<table id='body'>\n";
-echo "\t\t<tr>\n\t\t\t<td colspan='2'>\n";
-echo "\t\t\t\t<header>\n";
-echo "\t\t\t\t\tThe header of the page.\n";
-echo "\t\t\t\t</header>\n";
-echo "\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td id='nav'>\n";
-echo "\t\t\t\t<nav>\n";
-echo "\t\t\t\t\t<h1><a href='#'>Category 1</a></h1>\n";
-echo "\t\t\t\t\t\t<ul><li>On thing</li><li><a href='#'>A other one</a></li><li>And a last.</li></ul>\n";
-echo "\t\t\t\t\t<h1>Category 2</h1>\n";
-echo "\t\t\t\t\t\t<ul><li>Arflala…</li><li>The big problem yeah, a really big actually.</li></ul>\n";
-echo "\t\t\t\t</nav>\n";
-echo "\t\t\t</td>\n\t\t\t<td>\n";
-echo "\t\t\t\t<section>\n";
+viewDoctype($adminInfos['title']);
+viewHeader($adminInfos['title']);
+viewMenuNonAdmin();
 
 // BODY OF THE PAGE //
 //If config.php doesn't exit, we create it.

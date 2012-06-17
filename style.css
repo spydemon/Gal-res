@@ -46,6 +46,11 @@ td[id='nav'] {
 	padding-right: 5px;
 }
 
+td[id='nav'] input {
+	width: 100%;
+	margin-top: 5px;
+}
+
 a {
 	color: gray;
 	font-weight: bold;
