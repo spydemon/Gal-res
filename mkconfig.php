@@ -11,7 +11,7 @@ $form_register |= !empty($_POST['psw2'])				<< 2;
 $form_register |= !empty($_POST['address_bdd']) 	<< 3;
 $form_register |= !empty($_POST['psw_bdd'])			<< 4;
 $form_register |= !empty($_POST['username_bdd'])	<< 5;
-$form_register |= !empty($_POST['address_bdd'])		<< 6;
+$form_register |= !empty($_POST['name_bdd'])			<< 6;
 //}}}
 
 //{{{If all field of the formular aren't complete. We print the formular
@@ -105,9 +105,10 @@ else {
 
 			//{{{Now, we create the file with database connections info.
 			$config[0] = "<?php\n";
-			$config[1] = "const BDD_HOSTNAME = " . $_SPOST['name_bdd'] . "\n";
-			$config[2] = "const BDD_USERNAME = " . $_SPOST['username_bdd'] . "\n";
-			$config[3] = "const BDD_PASSWORD = " . $_SPOST['psw_bdd'] . "\n";
+			$config[1] = "define('BDD_HOSTNAME', '" . $_SPOST['address_bdd'] . "');\n";
+			$config[2] = "define('BDD_USERNAME', '" . $_SPOST['username_bdd'] . "');\n";
+			$config[3] = "define('BDD_PASSWORD', '" . $_SPOST['psw_bdd'] . "');\n";
+			$config[4] = "define('BDD_BDDNAME', '" . $_SPOST['name_bdd']. "');\n";
 			$config[4] = "?>\n";
 
 			$file = fopen('config.php', 'w');
@@ -116,7 +117,6 @@ else {
 				fwrite($file, $line);
 
 			fclose($file);
-			chmod('config.php', 004);
 			//}}}
 
 			//And finaly, we update data in the database.

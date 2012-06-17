@@ -22,9 +22,18 @@ if (!file_exists('config.php')) {
 	$title_page = 'Galère v1.0';
 	$config_exist = false;
 }
-else
+else {
+	include('config.php');
 	$config_exist = true;
+}
 
+//Autoloader of classes
+function chargeClass($name) {
+	require 'libs/' .$name. '.class.php';
+}
+spl_autoload_register(chargeClass);
+
+//$page = new Page();
 echo "<DOCTYPE html>\n";
 echo "<html>\n";
 echo "\t<head>\n";
