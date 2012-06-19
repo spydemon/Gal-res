@@ -1,8 +1,11 @@
 <?php
+session_start();
+
 //The controler part
-include ('functions.php');
+include_once('functions.php');
+include_once('libs/auth.php');
 //The view part
-include ('views.php');
+include_once ('views.php');
 
 //Define use to know if functions are call in the index.php file or not.
 define(ROOT_CALL, true);
@@ -20,6 +23,9 @@ if (CONFIG_EXIST) {
 
 	//We fetch all datas in the admin database.
 	$adminInfos = fetchAdmin($db);
+
+	//We check if the user is logged in.
+	define(USER_ADMIN, checkAdmin($adminInfos));
 }
 else {
 	//If database doesn't exist, we "hardcreate" the title and footer of the page.
@@ -29,12 +35,25 @@ else {
 
 viewDoctype($adminInfos['title']);
 viewHeader($adminInfos['title']);
-viewMenuNonAdmin();
+if (USER_ADMIN) {
+	viewMenuAdmin();
+}
+else {
+	viewMenuNonAdmin();
+}
 
 // BODY OF THE PAGE //
 //If config.php doesn't exit, we create it.
-if (!$config_exist)
+if (!CONFIG_EXIST)
 	include('mkconfig.php');
+//If we send the authentication formular.
+if ($_POST['type'] == "auth" && CONFIG_EXIST) {
+	authentication($adminInfos, $db);
+}
+//If we want to logout.
+elseif ($_POST['type'] == "logout" && CONFIG_EXIST) {
+	logout($db);
+}
 
 echo "\t\t\t\t</section>\n";
 echo "\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>\n\t\t\t</td>\n";

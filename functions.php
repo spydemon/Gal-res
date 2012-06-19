@@ -1,14 +1,6 @@
 <?php
-//This function is used for catching all entries in galere_admin bdd.
-function fetchAdmin(PDO $db) {
-	$list = array();
-	$datas = $db->query("SELECT * FROM galeres_admin");
-  	while ($data = $datas->fetch(PDO::FETCH_ASSOC)) {
-		$list[$data['var_name']] = $data['var_value'];
-	}
-	return $list;
-}
 
+//{{{removeMagicQuotes
 function removeMagicQuotes() {
 	if (get_magic_quotes_gpc()) {
 		 $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
@@ -26,7 +18,21 @@ function removeMagicQuotes() {
 		 unset($process);
 	}
 }
+//}}}
 
+//{{{fetchAdmin
+//This function is used for catching all entries in galere_admin bdd.
+function fetchAdmin(PDO $db) {
+	$list = array();
+	$datas = $db->query("SELECT * FROM galeres_admin");
+  	while ($data = $datas->fetch(PDO::FETCH_ASSOC)) {
+		$list[$data['var_name']] = $data['var_value'];
+	}
+	return $list;
+}
+//}}}
+
+//{{{check_config
 function check_config() {
 	//Verification if config.php exists. If the file doesn't exist, we have to create it and to create the database also
 	if (!file_exists('config.php')) {
@@ -36,3 +42,5 @@ function check_config() {
 		return true;
 	}
 }
+//}}}
+
