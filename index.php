@@ -4,6 +4,7 @@ session_start();
 //The controler part
 include_once('functions.php');
 include_once('libs/auth.php');
+include_once('libs/categories.php');
 //The view part
 include_once ('views.php');
 
@@ -46,13 +47,24 @@ else {
 //If config.php doesn't exit, we create it.
 if (!CONFIG_EXIST)
 	include('mkconfig.php');
-//If we send the authentication formular.
-if ($_POST['type'] == "auth" && CONFIG_EXIST) {
-	authentication($adminInfos, $db);
-}
-//If we want to logout.
-elseif ($_POST['type'] == "logout" && CONFIG_EXIST) {
-	logout($db);
+else {
+	//We catch the kind of page to display (by POST or GET variable).
+	if (!empty($_POST['type'])) $type = $_POST['type'];
+	else if (!empty($_GET['type'])) $type = $_GET['type'];
+
+	switch ($type) {
+		case "adminCategories" :
+			//If the admin want to add or manage categories
+			manageCategories($db);
+		case "auth" :
+			//If we send the authentication formular.
+			authentication($adminInfos, $db);
+			break;
+		case "logout" :
+			//If we want to logout.
+			logout($db);
+			break;
+	}
 }
 
 echo "\t\t\t\t</section>\n";

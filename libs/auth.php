@@ -14,9 +14,6 @@ function authentication(array $adminInfos, PDO $db) {
 			//We activate the session.
 			$_SESSION[galeres] = $string;
 		}
-		else {
-			echo "Pas authentifié.<br />";
-		}
 	}
 }
 //}}}
