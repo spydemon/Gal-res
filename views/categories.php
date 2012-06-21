@@ -29,3 +29,42 @@ function viewCreateCategory() {
 	}
 }
 //}}}
+
+//{{{viewModifCategories
+function viewModifCategories(array $categoriesList) {
+	?>
+		<fieldset>
+			<legend>Modification of a existing category</legend>
+			<table>
+				<tr>
+					<th>Name</th>
+					<th>Position</th>
+				</tr>
+	<?php
+		foreach($categoriesList as $category) {
+	?>
+				<tr>
+					<form method="post" action="index.php">
+						<td><input type="text" name="name" value="<?php echo $category['name'] ?>" /></td>
+					   <td><input type="text" name="position" value="<?php echo $category['position'] ?>" size="3" /></td>
+						<input type="hidden"	name="type" value="adminCategories" />
+					   <input type="hidden" name="action" value="modifOne" />
+						<input type="hidden" name="id" value="<?php echo $category['id'] ?>" />
+						<td><input type="submit" value="Modification" /></td>
+					</form>
+					<form method="post" action="index.php">
+						<input type="hidden" name="type" value="adminCategories" />
+						<input type="hidden" name="action" value="delOne" />
+						<input type="hidden" name="id" value="<?php echo $category['id'] ?>" />
+						<td><input type="submit" value="Delete" /></td>
+					</form>
+				</tr>
+	<?php
+		}
+	?>
+			</table>
+		</fieldset>
+	<?php
+}
+//}}}
+
