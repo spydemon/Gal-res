@@ -11,6 +11,9 @@ function manageCategories(PDO $db) {
 		elseif ($_POST['action'] == "modifOne") {
 			modifCategory($db);
 		}
+		elseif ($_POST['action'] == "delOne") {
+			delCategory($db);
+		}
 
 		//We show the formular for adding one category.
 		viewCreateCategory();
@@ -39,18 +42,29 @@ function addCategory(PDO $db) {
 //{{{modifCategory
 function modifCategory(PDO $db) {
 	if (empty($_POST['name']) || !is_numeric($_POST['id']) || !is_numeric($_POST['position'])) {
-		echo "You vave to complete all fields with valids values<br />\n";
+		echo "You have to complete all fields with valids values<br />\n";
 	}
 	else {
-	try {
+	echo "UPDATE galeres_categories SET 
+			name='" .htmlentities($_POST['name'], ENT_QUOTES). "',
+			position='" .htmlentities($_POST['position'], ENT_QUOTES). "'
+			WHERE id=" .htmlentities($_POST['id'], ENT_QUOTES). "<br />";
+ 
 	$db->exec("UPDATE galeres_categories SET 
-			name=" .htmlentities($_POST['name'], ENT_QUOTES). ",
-			position=" .htmlentities($_POST['position'], ENT_QUOTES). "
+			name='" .htmlentities($_POST['name'], ENT_QUOTES). "',
+			position='" .htmlentities($_POST['position'], ENT_QUOTES). "'
 			WHERE id=" .htmlentities($_POST['id'], ENT_QUOTES) );
 	}
-	catch (Exception $e) {
-		$e->getMessage();
+}
+//}}}
+
+//{{{delCategory
+function delCategory(PDO $db) {
+	if (empty($_POST['id'])) {
+		echo "You have to choose the category to delete.<br />\n";
 	}
+	else {
+		$db->exec("DELETE FROM galeres_categories WHERE id=" .htmlentities($_POST['id'], ENT_QUOTES));
 	}
 }
 //}}}
