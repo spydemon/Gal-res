@@ -20,7 +20,6 @@ function viewMenuNonAdmin() {
 					</form>
 		<?php
 		}
-		viewMenu();
 	}
 }
 //}}}
@@ -38,6 +37,5 @@ function viewMenuAdmin() {
 					</form>
 		<?php
 	}
-	viewMenu();
 }
 //}}}

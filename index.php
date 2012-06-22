@@ -36,12 +36,17 @@ else {
 
 viewDoctype($adminInfos['title']);
 viewHeader($adminInfos['title']);
+
+//We print the login formular, or the admin pannel.
 if (USER_ADMIN) {
 	viewMenuAdmin();
 }
 else {
 	viewMenuNonAdmin();
 }
+//And after categories list.
+$categoriesList = $db->query("SELECT * FROM galeres_categories ORDER BY position, name")->fetchAll();
+viewMenu($categoriesList);
 
 // BODY OF THE PAGE //
 //If config.php doesn't exit, we create it.

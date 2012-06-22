@@ -36,9 +36,12 @@ function viewHeader($title) {
 //}}}
 
 //{{{viewMenu
-function viewMenu() {
+function viewMenu(array $categories) {
 	if (ROOT_CALL) {
 		echo "\t\t\t\t<nav>\n";
+		foreach($categories as $category) {
+			echo "\t\t\t\t\t<h1><a href='index.php?action=viewCat&amp;cat=" .$category['id']. "'>" .$category['name']. "</a></h1>\n";	
+		}
 		echo "\t\t\t\t\t<h1><a href='#'>Category 1</a></h1>\n";
 		echo "\t\t\t\t\t\t<ul><li>On thing</li><li><a href='#'>A other one</a></li><li>And a last.</li></ul>\n";
 		echo "\t\t\t\t\t<h1>Category 2</h1>\n";
