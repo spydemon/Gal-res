@@ -24,7 +24,7 @@ function createNewProblem(PDO $db) {
 			echo "You have to insert valid values in all fields.<br />\n";
 		}
 		else {
-			$solved = ($_POST['solved'] == "on") ? 1 : 0;
+			$solved = (isset($_POST['solved'])) ? 1 : NULL;
 			try {
 			$db->query("INSERT INTO galeres_problems (title, symptoms, position, solved, id_category) VALUES ('"
 			// echo "INSERT INTO galeres_problems (title, symptoms, position, solved, id_category) VALUES ('"
