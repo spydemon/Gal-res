@@ -13,6 +13,10 @@ table[id='body'] td {
 	vertical-align: top;
 }
 
+td {
+	text-align: left;
+}
+
 td[id='nav'] h1 {
 	background-color: grey;
 	color: black;
@@ -63,10 +67,19 @@ a:hover {
 	text-decoration: underline;
 }
 
-input, textarea {
+input, textarea, select {
 	background-color: black;
 	border: solid 1px grey;
 	color: grey;
+}
+
+textarea {
+	width: 100%;
+}
+
+textarea[id='bigTextarea'] {
+	width: 800px;
+	height: 300px;
 }
 
 header {

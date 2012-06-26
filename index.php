@@ -5,6 +5,8 @@ session_start();
 include_once('functions.php');
 include_once('libs/auth.php');
 include_once('libs/categories.php');
+include_once('libs/problems.php');
+
 //The view part
 include_once ('views.php');
 
@@ -61,6 +63,10 @@ else {
 		case "adminCategories" :
 			//If the admin want to add or manage categories
 			manageCategories($db);
+			break;
+		case "adminProblems" :
+			manageProblems($db);
+			break;
 		case "auth" :
 			//If we send the authentication formular.
 			authentication($adminInfos, $db);

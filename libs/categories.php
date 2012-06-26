@@ -68,3 +68,8 @@ function delCategory(PDO $db) {
 	}
 }
 //}}}
+
+//{{{getCategoriesName
+function getCategoriesName(PDO $db) {
+	return $db->query("SELECT id, name FROM galeres_categories")->fetchAll();
+}
