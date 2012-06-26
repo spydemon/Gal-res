@@ -32,6 +32,7 @@ function viewMenuAdmin() {
 				<td id='nav'>
 					<h1><a href="index.php?type=adminCategories">Gestion categories</a></h1>
 					<h1><a href="index.php?type=adminProblems">Gestion problems</a></h1>
+					<h1><a href="index.php?type=admin">Administration</a></h1>
 					<form method="post" action="index.php">
 						<input type="hidden" name="type" value="logout" />
 						<input type="submit" value="Logout" />

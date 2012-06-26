@@ -48,7 +48,9 @@ else {
 }
 //And after categories list.
 $categoriesList = $db->query("SELECT * FROM galeres_categories ORDER BY position, name")->fetchAll();
-viewMenu($categoriesList);
+$problemList = getProblems($db);
+
+viewMenu($categoriesList, $problemList);
 
 // BODY OF THE PAGE //
 //If config.php doesn't exit, we create it.
@@ -60,6 +62,8 @@ else {
 	else if (!empty($_GET['type'])) $type = $_GET['type'];
 
 	switch ($type) {
+		case "admin" :
+			break;
 		case "adminCategories" :
 			//If the admin want to add or manage categories
 			manageCategories($db);
