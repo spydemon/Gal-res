@@ -83,6 +83,9 @@ else {
 			//If user want to see all problems advaiable in one single category.
 			displayCategory($_GET['cat'], $db);
 			break;
+		default :
+			//If nothing has to be display, we display the list of all problems.
+			displayAllCategories($db);
 	}
 }
 
