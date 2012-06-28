@@ -79,6 +79,10 @@ else {
 			//If we want to logout.
 			logout($db);
 			break;
+		case "viewCat" :
+			//If user want to see all problems advaiable in one single category.
+			displayCategory($_GET['cat'], $db);
+			break;
 	}
 }
 

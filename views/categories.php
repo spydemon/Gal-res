@@ -68,3 +68,17 @@ function viewModifCategories(array $categoriesList) {
 }
 //}}}
 
+//{{{viewCategory
+function viewCategory(array $name_cat, array $problems) {
+	echo "<h1>" .$name_cat[0]['name']. "</h1>\n";
+	foreach ($problems as $problem) {
+		$type = ($problem['solved'] == 1) ? "problemSolved" : "problemUnsolved";
+		?>
+			<div class=" <?php echo $type ?> ">
+				<h2> <a href="index.php?action=viewPb&amp;pb=<?php echo $problem['id']; ?>"><?php echo $problem['title']; ?></a></h2>
+				<?php echo $problem['symptoms'] ?>
+			</div>
+		<?php
+	}
+}
+//}}}

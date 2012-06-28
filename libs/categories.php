@@ -25,7 +25,6 @@ function manageCategories(PDO $db) {
 }
 //}}}
 
-
 //{{{addCategory
 function addCategory(PDO $db) {
 	if (empty($_POST['name']) || (!is_numeric($_POST['position']))) {
@@ -73,3 +72,17 @@ function delCategory(PDO $db) {
 function getCategoriesName(PDO $db) {
 	return $db->query("SELECT id, name FROM galeres_categories")->fetchAll();
 }
+//}}}
+
+//{{{displayCategory
+function displayCategory($cat, PDO $db) {
+	if (is_numeric($cat)) {
+		$name_cat = $db->query("SELECT name FROM galeres_categories WHERE id = '" .htmlentities($cat, ENT_QUOTES). "'")->fetchAll();
+		$display = $db->query("SELECT * FROM galeres_problems WHERE id_category = '" .htmlentities($cat, ENT_QUOTES). "' ORDER BY date, title")->fetchAll();
+		if (empty($display)) {
+		}
+		else 
+			viewCategory($name_cat, $display);
+	}
+}
+//}}}	

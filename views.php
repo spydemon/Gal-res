@@ -43,7 +43,7 @@ function viewMenu(array $categories, array $problems) {
 
 		echo "\t\t\t\t<nav>\n";
 		foreach($categories as $category) {
-			echo "\t\t\t\t\t<h1><a href='index.php?action=viewCat&amp;cat=" .$category['id']. "'>" .$category['name']. "</a></h1>\n";	
+			echo "\t\t\t\t\t<h1><a href='index.php?type=viewCat&amp;cat=" .$category['id']. "'>" .$category['name']. "</a></h1>\n";	
 			echo "\t\t\t\t\t\t<ul>\n";
 			foreach($problems as $problem) {
 				if ($problem['id_category'] == $category['id'])
@@ -52,6 +52,8 @@ function viewMenu(array $categories, array $problems) {
 			echo "\t\t\t\t\t\t</ul>\n";
 		}
 		echo "\t\t\t\t</nav>\n";
+		echo "\t\t\t\t</td>\n";
+		echo "\t\t\t\t<td>\n";
 		echo "\t\t\t\t<section>\n";
 	}
 }

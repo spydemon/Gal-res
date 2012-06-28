@@ -114,3 +114,42 @@ footer {
 	margin-bottom : 5px;
 	text-align:center;
 }
+
+section h1 {
+	background-color: gray;
+	color: black;
+	margin-top: 0px;
+	text-align: center;
+}
+
+.problemSolved {
+	border: dashed 1px green;
+	margin-bottom: 15px;
+	padding: 2px;
+	padding-left: 4px;
+}
+
+.problemSolved h2, .problemSolved a {
+	background-color:rgb(9, 51, 0);
+	color: green;
+	font-size: 1em;
+	margin:0px;
+	margin-bottom: 2px;
+	padding: 2px;
+}
+
+.problemUnsolved {
+	border: dashed 1px red;
+	margin-bottom: 15px;
+	padding: 2px;
+	padding-left: 4px;
+}
+
+.problemUnsolved h2, .problemUnsolved a {
+	background-color:rgb(128, 0, 0);
+	color: red;
+	font-size: 1em;
+	margin: 0px;
+	margin-bottom: 2px;
+	padding: 2px;
+}
