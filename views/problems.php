@@ -48,3 +48,43 @@ function viewCategoriesOption(array $list) {
 	}
 	echo "</select>\n";
 }	
+//}}}
+
+//{{{viewDisplayModificationProblem
+function viewDisplayModificationProblem($id, $title, $symptoms, $position, $solved) {
+	if (USER_ADMIN && ROOT_CALL) {
+		?>
+			<fieldset>
+				<legend>Modification of the problem: <?php echo $title; ?></legend>
+				<table>
+					<form method="post" action="index.php">
+						<tr>
+							<td><label for="title">Title:</label></td>
+						   <td><input type="text" name="title" id="title" value="<?php echo $title ?>" /></td>
+						</tr>
+						<tr>
+							<td><label for="position">Position:</label></td>
+							<td><input type="text" name="position" id="position" value="<?php echo $position ?>" /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><label for="bigTextarea">Symptoms:</label></td>
+						</tr>
+						<tr>
+							<td colspan="2"><textarea name="symptoms" id="bigTextarea"><?php echo $symptoms ?> </textarea></td>
+						</tr>
+						<tr>
+							<td><label for="solved">Is the problem solved?</label></td>
+							<td><input type="checkbox" name="solved" id="solved" <?php if($solved == 1) echo "checked=\"checked\""; ?> /></td>
+						</tr>	
+						<input type="hidden" name="id" value="<?php echo $id ?>" />
+						<input type="hidden" name="type" value="modifProblem" />
+						<tr>
+							<td colspan="2"><input type="submit" value="Update problem" /></td>
+						</tr>
+					</form>
+				</table>
+			</fieldset>
+		<?php
+	}
+}
+//}}}

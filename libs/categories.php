@@ -94,3 +94,4 @@ function displayAllCategories(PDO $db) {
 		displayCategory($element['id'], $db);
 }
 //}}}
+

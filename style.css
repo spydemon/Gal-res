@@ -129,13 +129,17 @@ section h1 {
 	padding-left: 4px;
 }
 
-.problemSolved h2, .problemSolved a {
+.problemSolved h2 {
 	background-color:rgb(9, 51, 0);
 	color: green;
 	font-size: 1em;
 	margin:0px;
 	margin-bottom: 2px;
 	padding: 2px;
+}
+
+.problemSolved h2 a {
+	color: green;
 }
 
 .problemUnsolved {
@@ -145,11 +149,26 @@ section h1 {
 	padding-left: 4px;
 }
 
-.problemUnsolved h2, .problemUnsolved a {
+.problemUnsolved h2 {
 	background-color:rgb(128, 0, 0);
 	color: red;
 	font-size: 1em;
 	margin: 0px;
 	margin-bottom: 2px;
 	padding: 2px;
+}
+
+.problemUnsolved h2 a {
+	color: red;
+}
+
+.modificationProblem {
+	background-color: none;
+	text-align:right;
+}
+
+.modificationProblem a {
+	background-color: none;
+	color: gray;
+	font-size: 0.8em;
 }
