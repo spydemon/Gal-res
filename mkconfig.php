@@ -23,25 +23,25 @@ if ($form_register != 0x7f) {
 	echo "<form action='index.php' method='post'>\n";
 	echo "\t<table>\n";
 	echo "\t\t<tr><td><label for='pseudo'>Pseudonyme :</label>\t					</td><td>\t<input type='text' name='pseudo' id='pseudo' ";
-		if ($form_register && 1<<0) echo "value='" .htmlentities($_POST['pseudo'], ENT_QUOTES). "'";
+		if ($form_register && 1<<0) echo "value='" .secureVar($_POST['pseudo']). "'";
 		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td><label for='psw1'>Password:</label>\t							</td><td>\t<input type='password' name='psw1' id='psw1' ";
-		if ($form_register && 1<<1) echo "value='" .htmlentities($_POST['psw1'], ENT_QUOTES). "'";
+		if ($form_register && 1<<1) echo "value='" .secureVar($_POST['psw1']). "'";
 		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td><label for='psw2'>Password (again):</label>\t\t\t			</td><td>\t<input type='password' name='psw2' id='psw2' ";
-		if ($form_register && 1<<2) echo "value='" .htmlentities($_POST['psw2'], ENT_QUOTES). "'";
+		if ($form_register && 1<<2) echo "value='" .secureVar($_POST['psw2']). "'";
 		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td><label for='name_bdd'>Name database:</label>\t\t\t			</td><td>\t<input type='text' name='name_bdd' id='name_bdd' ";
-		if ($form_register && 1<<6) echo "value='" .htmlentities($_POST['name_bdd'], ENT_QUOTES). "'";
+		if ($form_register && 1<<6) echo "value='" .secureVar($_POST['name_bdd']). "'";
 		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td><label for='address_bdd'>Address database:</label>\t\t\t	</td><td>\t<input type='text' name='address_bdd' id='address_bdd' ";
-		if ($form_register && 1<<3) echo "value='" .htmlentities($_POST['address_bdd'], ENT_QUOTES). "'";
+		if ($form_register && 1<<3) echo "value='" .secureVar($_POST['address_bdd']). "'";
 		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td><label for='username_bdd'>Username database:</label>\t\t\t</td><td>\t<input type='text' name='username_bdd' id='username_bdd' ";
-		if ($form_register && 1<<5) echo "value='" .htmlentities($_POST['username_bdd'], ENT_QUOTES). "'";
+		if ($form_register && 1<<5) echo "value='" .secureVar($_POST['username_bdd']). "'";
 		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td><label for='psw_bdd'>Password database:</label>\t\t\t\t	</td><td>\t<input type='text' name='psw_bdd' id='psw_bdd' ";
-		if ($form_register && 1<<4) echo "value='" .htmlentities($_POST['psw_bdd'], ENT_QUOTES). "'";
+		if ($form_register && 1<<4) echo "value='" .secureVar($_POST['psw_bdd']). "'";
 		echo "/>\t</td></tr>\n";
 	echo "\t\t<tr><td colspan='2'><input type='submit' value='Gooooo!' /></tr>\n";
 	echo "\t</table>\n";
@@ -60,7 +60,7 @@ else {
 	else {
 		//In a first time we secure all POST datas.
 		foreach ($_POST as $key => $value)
-			$_SPOST[$key] = htmlentities($value, ENT_QUOTES);
+			$_SPOST[$key] = secureVar($value);
 
 		//After, we'll check if we can access to the database.
 		try {

@@ -44,3 +44,9 @@ function check_config() {
 }
 //}}}
 
+//{{{secureVar
+function secureVar($var) {
+	return htmlentities($var, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+}
+//}}}
+

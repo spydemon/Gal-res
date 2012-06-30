@@ -32,8 +32,8 @@ function addCategory(PDO $db) {
 	}
 	else {
 		$db->exec("INSERT INTO galeres_categories (name, position) VALUES ('"
-				.htmlentities($_POST['name'], ENT_QUOTES). "', '"
-				.htmlentities($_POST['position'], ENT_QUOTES). "')");
+				.secureVar($_POST['name']). "', '"
+				.secureVar($_POST['position']). "')");
 	}
 }
 //}}}
@@ -45,14 +45,14 @@ function modifCategory(PDO $db) {
 	}
 	else {
 	echo "UPDATE galeres_categories SET 
-			name='" .htmlentities($_POST['name'], ENT_QUOTES). "',
-			position='" .htmlentities($_POST['position'], ENT_QUOTES). "'
-			WHERE id=" .htmlentities($_POST['id'], ENT_QUOTES). "<br />";
+			name='" .secureVar($_POST['name']). "',
+			position='" .secureVar($_POST['position']). "'
+			WHERE id=" .secureVar($_POST['id']). "<br />";
  
 	$db->exec("UPDATE galeres_categories SET 
-			name='" .htmlentities($_POST['name'], ENT_QUOTES). "',
-			position='" .htmlentities($_POST['position'], ENT_QUOTES). "'
-			WHERE id=" .htmlentities($_POST['id'], ENT_QUOTES) );
+			name='" .secureVar($_POST['name']). "',
+			position='" .secureVar($_POST['position']). "'
+			WHERE id=" .secureVar($_POST['id']) );
 	}
 }
 //}}}
@@ -63,7 +63,7 @@ function delCategory(PDO $db) {
 		echo "You have to choose the category to delete.<br />\n";
 	}
 	else {
-		$db->exec("DELETE FROM galeres_categories WHERE id=" .htmlentities($_POST['id'], ENT_QUOTES));
+		$db->exec("DELETE FROM galeres_categories WHERE id=" .secureVar($_POST['id']));
 	}
 }
 //}}}
@@ -77,8 +77,8 @@ function getCategoriesName(PDO $db) {
 //{{{displayCategory
 function displayCategory($cat, PDO $db) {
 	if (is_numeric($cat)) {
-		$name_cat = $db->query("SELECT name FROM galeres_categories WHERE id = '" .htmlentities($cat, ENT_QUOTES). "'")->fetchAll();
-		$display = $db->query("SELECT * FROM galeres_problems WHERE id_category = '" .htmlentities($cat, ENT_QUOTES). "' ORDER BY date, title")->fetchAll();
+		$name_cat = $db->query("SELECT name FROM galeres_categories WHERE id = '" .secureVar($cat). "'")->fetchAll();
+		$display = $db->query("SELECT * FROM galeres_problems WHERE id_category = '" .secureVar($cat). "' ORDER BY date, title")->fetchAll();
 		if (empty($display)) 
 			displayAllCategories($db);
 		else 

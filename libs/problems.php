@@ -28,11 +28,11 @@ function createNewProblem(PDO $db) {
 			try {
 			$db->query("INSERT INTO galeres_problems (title, symptoms, position, solved, id_category) VALUES ('"
 			// echo "INSERT INTO galeres_problems (title, symptoms, position, solved, id_category) VALUES ('"
-				.htmlentities($_POST['name'], ENT_QUOTES). "', '"
-				.htmlentities($_POST['symptoms'], ENT_QUOTES). "', '"
-				.htmlentities($_POST['position'], ENT_QUOTES). "', '"
+				.secureVar($_POST['name']). ", '"
+				.secureVar($_POST['symptoms']). "', '"
+				.secureVar($_POST['position']). "', '"
 				.$solved. "' , '"
-				.htmlentities($_POST['category'], ENT_QUOTES). "')");
+				.secureVar($_POST['category']). "')");
 		}
 			catch (Exception $e) {
 				echo "Exception : <br />";
@@ -54,7 +54,7 @@ function modifProblem($id, PDO $db) {
 	if (USER_ADMIN) {
 		//If we want to display the modification formular.
 		if (is_numeric($id) && empty($_POST)) {
-			$data = $db->query("SELECT * FROM galeres_problems WHERE id = '" .htmlentities($id, ENT_QUOTES). "'")->fetch();
+			$data = $db->query("SELECT * FROM galeres_problems WHERE id = '" .secureVar($id). "'")->fetch();
 			viewDisplayModificationProblem($data['id'], $data['title'], $data['symptoms'], $data['position'], $data['solved']);
 		}
 		//If user want to send the formular and apply modifications to the problem.
@@ -64,11 +64,11 @@ function modifProblem($id, PDO $db) {
 			}
 			else {
 				$db->query("UPDATE galeres_problems SET 
-						title='" .htmlentities($_POST['title'], ENT_QUOTES). "', 
-						position='" .htmlentities($_POST['position'], ENT_QUOTES). "', 
-						symptoms='" .htmlentities($_POST['symptoms'], ENT_QUOTES). "',
+						title='" .secureVar($_POST['title']). "', 
+						position='" .secureVar($_POST['position']). "', 
+						symptoms='" .secureVar($_POST['symptoms']). "',
 						solved='" .(($_POST['solved'] == "on") ? 1 : 0). "'
-						WHERE id=" .htmlentities($_POST['id'], ENT_QUOTES));
+						WHERE id=" .secureVar($_POST['id']));
 				//Now we display the problem that we modify.
 			}
 		}
