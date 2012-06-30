@@ -76,7 +76,7 @@ function viewCategory(array $name_cat, array $problems) {
 		?>
 			<div class=" <?php echo $type ?> ">
 				<h2> <a href="index.php?action=viewPb&amp;pb=<?php echo $problem['id']; ?>"><?php echo $problem['title']; ?></a></h2>
-				<?php echo $problem['symptoms'] ?>
+				<?php echo decodeVar($problem['symptoms']) ?>
 		<?php
 		//If the user are a administrator, we allow him to modify the problem.
 		if(USER_ADMIN) 

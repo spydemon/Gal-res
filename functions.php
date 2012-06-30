@@ -50,3 +50,8 @@ function secureVar($var) {
 }
 //}}}
 
+//{{{decodeVar
+function decodeVar ($var) {
+	return html_entity_decode($var, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+}
+//}}}
