@@ -84,7 +84,7 @@ function displayProblem($id, PDO $db) {
 		if (!empty($pbInfo)) {
 			$catInfo = $db->query("SELECT name FROM galeres_categories WHERE id=" .$pbInfo['id_category'])->fetch();
 			$stepsInfo = $db->query("SELECT * FROM galeres_steps WHERE id_problem=" .secureVar($id). " ORDER BY date")->fetchAll();
-			viewProblem($pbInfo['title'], $pbInfo['symptoms'], $pbInfo['solved'], $pbInfo['date'], $catInfo['name'], $stepsInfo);
+			viewProblem($pbInfo['title'], $pbInfo['symptoms'], $pbInfo['solved'], $pbInfo['date'], $catInfo['name'], $stepsInfo, $pbInfo['id']);
 		}
 	}
 }

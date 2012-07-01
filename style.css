@@ -89,7 +89,7 @@ textarea {
 	width: 100%;
 }
 
-textarea[id='bigTextarea'] {
+textarea[id='bigTextarea'], textarea[id='action'], textarea[id='reaction'] {
 	width: 800px;
 	height: 300px;
 }
@@ -198,4 +198,16 @@ table[id="solved"] {
 table[id="unsolved"] {
 	color: red;
 	margin: auto 0 auto auto;
+}
+
+.newStep {
+	background-color: gray;
+	margin: auto;
+	padding: 3px;
+	text-align: center;
+	width: 200px;
+}
+
+.newStep a {
+	color: black;
 }

@@ -6,6 +6,7 @@ include_once('functions.php');
 include_once('libs/auth.php');
 include_once('libs/categories.php');
 include_once('libs/problems.php');
+include_once('libs/steps.php');
 
 //The view part
 include_once ('views.php');
@@ -89,6 +90,13 @@ else {
 			break;
 		case "viewPb" :
 			displayProblem($_GET['pb'], $db);
+			break;
+		case "newStep" :
+			//If user as already send a formular for create a new step, we have to extract the id of the category from the formular
+			if (!empty($_POST['id']))
+				createNewStep($_POST['id'], $db);
+			else
+				createNewStep($_GET['id'], $db);
 			break;
 		default :
 			//If nothing has to be display, we display the list of all problems.

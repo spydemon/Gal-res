@@ -89,8 +89,8 @@ function viewDisplayModificationProblem($id, $title, $symptoms, $position, $solv
 }
 //}}} 
 
-//{{{viewCategory
-function viewProblem($title, $symptoms, $solved, $date, $category_title, array $steps) {
+//{{{viewProblem
+function viewProblem($title, $symptoms, $solved, $date, $category_title, array $steps, $id) {
 	if (ROOT_CALL) {
 	?>
 		<h1><?php echo $title; ?></h1>
@@ -106,7 +106,10 @@ function viewProblem($title, $symptoms, $solved, $date, $category_title, array $
 		echo "<table id=\"solved\"><tr><td><img alt=\"tick\" src=\"imgs/tick_big.png\" /></td><td style=\"vertical-align:middle;\">This problem was solved.</td></tr></table>\n";
 	else
 		echo "<table id=\"unsolved\"><tr><td><img alt=\"cross\" src=\"imgs/cross_big.png\" /></td><td style=\"vertical-align:middle;\">This problem isn't solved for the moment.</td></tr></table>\n";
-	echo "<hr />\n";
+	
+	//If user is admin, he can add a new step to the problem.
+	if (USER_ADMIN)
+		echo "<div class=\"newStep\"><a href=\"index.php?type=newStep&amp;id=" .$id. "#newStep\">Add a new step</a></div>\n";
 	}
 }
 //}}}
