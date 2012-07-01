@@ -75,7 +75,7 @@ function viewCategory(array $name_cat, array $problems) {
 		$type = ($problem['solved'] == 1) ? "problemSolved" : "problemUnsolved";
 		?>
 			<div class=" <?php echo $type ?> ">
-				<h2> <a href="index.php?action=viewPb&amp;pb=<?php echo $problem['id']; ?>"><?php echo $problem['title']; ?></a></h2>
+				<h2> <a href="index.php?type=viewPb&amp;pb=<?php echo $problem['id']; ?>"><?php echo $problem['title']; ?></a></h2>
 				<?php echo decodeVar($problem['symptoms']) ?>
 		<?php
 		//If the user are a administrator, we allow him to modify the problem.

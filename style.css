@@ -119,12 +119,13 @@ section h1 {
 	background-color: gray;
 	color: black;
 	margin-top: 0px;
+	margin-bottom: 0px;
 	text-align: center;
 }
 
 .problemSolved {
 	border: dashed 1px green;
-	margin-bottom: 15px;
+	margin-top: 15px;
 	padding: 2px;
 	padding-left: 4px;
 }
@@ -144,7 +145,7 @@ section h1 {
 
 .problemUnsolved {
 	border: dashed 1px red;
-	margin-bottom: 15px;
+	margin-top: 15px;
 	padding: 2px;
 	padding-left: 4px;
 }
@@ -171,4 +172,30 @@ section h1 {
 	background-color: none;
 	color: gray;
 	font-size: 0.8em;
+}
+
+table[id="subtitleProblem"] {
+	background-color:gray;
+	color: black;
+	font-size: 0.7em;
+	margin: 0px;
+	width: 100%;
+}
+
+td[id="catProblem"] {
+	text-align: right;
+}
+
+section p {
+	padding-left: 3px;
+}
+
+table[id="solved"] {
+	color: green;
+	margin: auto 0 auto auto;
+}
+
+table[id="unsolved"] {
+	color: red;
+	margin: auto 0 auto auto;
 }

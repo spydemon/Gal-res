@@ -47,7 +47,7 @@ function viewMenu(array $categories, array $problems) {
 			echo "\t\t\t\t\t\t<ul>\n";
 			foreach($problems as $problem) {
 				if ($problem['id_category'] == $category['id'])
-					echo "\t\t\t\t\t\t\t<li><a href='index.php?action=viewPb&amp;pb=" .$problem['id']. "' id='" .$type[$problem['solved'] == 1]. "'>" .$problem['title']. "</a></li>";	
+					echo "\t\t\t\t\t\t\t<li><a href='index.php?type=viewPb&amp;pb=" .$problem['id']. "' id='" .$type[$problem['solved'] == 1]. "'>" .$problem['title']. "</a></li>";	
 			}
 			echo "\t\t\t\t\t\t</ul>\n";
 		}

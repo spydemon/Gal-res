@@ -27,8 +27,8 @@ function createNewProblem(PDO $db) {
 			$solved = (isset($_POST['solved'])) ? 1 : NULL;
 			try {
 			$db->query("INSERT INTO galeres_problems (title, symptoms, position, solved, id_category) VALUES ('"
-			// echo "INSERT INTO galeres_problems (title, symptoms, position, solved, id_category) VALUES ('"
-				.secureVar($_POST['name']). ", '"
+			//echo "INSERT INTO galeres_problems (title, symptoms, position, solved, id_category) VALUES ('"
+				.secureVar($_POST['name']). "', '"
 				.secureVar($_POST['symptoms']). "', '"
 				.secureVar($_POST['position']). "', '"
 				.$solved. "' , '"
@@ -71,6 +71,20 @@ function modifProblem($id, PDO $db) {
 						WHERE id=" .secureVar($_POST['id']));
 				//Now we display the problem that we modify.
 			}
+		}
+	}
+}
+//}}}
+
+//{{{displayProblem
+function displayProblem($id, PDO $db) {
+	if (is_numeric($id)) {
+		$pbInfo = $db->query("SELECT * FROM galeres_problems WHERE id=" .secureVar($id))->fetch();
+		//We check if the user hasn't put a crazy value in $id.
+		if (!empty($pbInfo)) {
+			$catInfo = $db->query("SELECT name FROM galeres_categories WHERE id=" .$pbInfo['id_category'])->fetch();
+			$stepsInfo = $db->query("SELECT * FROM galeres_steps WHERE id_problem=" .secureVar($id). " ORDER BY date")->fetchAll();
+			viewProblem($pbInfo['title'], $pbInfo['symptoms'], $pbInfo['solved'], $pbInfo['date'], $catInfo['name'], $stepsInfo);
 		}
 	}
 }

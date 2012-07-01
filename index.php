@@ -87,6 +87,9 @@ else {
 			//If user is the admin and want to modify a category.
 			modifProblem($_GET['id'], $db);
 			break;
+		case "viewPb" :
+			displayProblem($_GET['pb'], $db);
+			break;
 		default :
 			//If nothing has to be display, we display the list of all problems.
 			displayAllCategories($db);

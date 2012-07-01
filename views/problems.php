@@ -87,4 +87,26 @@ function viewDisplayModificationProblem($id, $title, $symptoms, $position, $solv
 		<?php
 	}
 }
+//}}} 
+
+//{{{viewCategory
+function viewProblem($title, $symptoms, $solved, $date, $category_title, array $steps) {
+	if (ROOT_CALL) {
+	?>
+		<h1><?php echo $title; ?></h1>
+		<table id="subtitleProblem"><tr>
+			<td id="dateProblem">Last update: <strong><?php echo $date;?></strong></td>
+			<td id="catProblem">In category: <strong><?php echo $category_title;?></strong></td>
+		</tr></table>
+		<p>
+			<?php echo decodeVar($symptoms); ?>
+		</p>
+	<?php
+	if ($solved) 
+		echo "<table id=\"solved\"><tr><td><img alt=\"tick\" src=\"imgs/tick_big.png\" /></td><td style=\"vertical-align:middle;\">This problem was solved.</td></tr></table>\n";
+	else
+		echo "<table id=\"unsolved\"><tr><td><img alt=\"cross\" src=\"imgs/cross_big.png\" /></td><td style=\"vertical-align:middle;\">This problem isn't solved for the moment.</td></tr></table>\n";
+	echo "<hr />\n";
+	}
+}
 //}}}
