@@ -80,14 +80,14 @@ else {
 																								symptoms		MEDIUMTEXT		NOT NULL,
 																								date			TIMESTAMP(8), 
 																								position 	INT,
-																								solved		BIT,
+																								solved		TINYINT,
 																								id_category	INT				NOT NULL,
 																								FOREIGN KEY (id_category) REFERENCES galeres_categories(id)						) ENGINE = INNODB ;";
 
 			$create_steps_base = "CREATE TABLE galeres_steps (					action		MEDIUMTEXT		NOT NULL,
 																								reaction		MEDIUMTEXT		NOT NULL,
 																								date			TIMESTAMP(8),
-																								useful		BIT,
+																								useful		TINYINT,
 																								id_problem	INT				NOT NULL,
 																								FOREIGN KEY (id_problem) REFERENCES galeres_problems(id)							) ENGINE = INNODB ;";
 
