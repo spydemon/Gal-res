@@ -35,3 +35,73 @@ function viewNewStep($id, $solved) {
 	}
 }
 //}}}
+
+//{{{viewAddStepButton
+function viewAddStepButton($id) {
+	//If user is admin, he can add a new step to the problem.
+	if (USER_ADMIN)
+		echo "<div class=\"newStep\"><a href=\"index.php?type=newStep&amp;id=" .$id. "#newStep\">Add a new step</a></div>\n";
+}
+
+//{{{viewStep
+function viewStep ($action, $reaction, $useful, $number) {
+	$cool = ($useful == 1) ? "useful" : "useless";
+
+	//{{{First, we display the header.
+	if ($cool == "useful") { 
+		?>
+		<div class="headerUsefulStep">
+			<table id="mainTable"><tr>
+				<td id="left">
+					#<?php echo $number; ?>
+				</td>
+				<td id="right">
+					<table style="display:inline;"><tr>
+						<td>
+							<img alt="tick" src="imgs/tick_small.png" />
+						</td><td style="vertical-align: middle;">
+							This step was useful.
+						</td>
+					</tr></table>
+				</td>
+			</tr></table>
+		</div>
+		<?php
+	}
+	else {
+		?>
+		<div class="headerUselessStep">
+			<table id="mainTable"><tr>
+				<td id="left">
+					#<?php echo $number; ?>
+				</td>
+				<td id="right">
+					<table style="display:inline;"><tr>
+						<td>
+							<img alt="cross" src="imgs/cross_small.png" />
+						</td><td style="vertical-align: middle;">
+							This step was useless.
+						</td>
+					</tr></table>
+				</td>
+			</tr></table>
+		</div>
+		<?php
+	}
+	//}}}	 
+
+	//{{{After, we display the "real" content. 
+	?>
+		<p>
+			<?php echo $action; ?>
+		</p>
+		<div class="<?php echo $cool;?>Step">
+			Reaction produced
+		</div>
+		<p>
+			<?php echo $reaction; ?>
+		</p>
+	<?php
+	//}}}
+}
+//}}}

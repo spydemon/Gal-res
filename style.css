@@ -203,6 +203,7 @@ table[id="unsolved"] {
 .newStep {
 	background-color: gray;
 	margin: auto;
+	margin-top: 20px;
 	padding: 3px;
 	text-align: center;
 	width: 200px;
@@ -210,4 +211,55 @@ table[id="unsolved"] {
 
 .newStep a {
 	color: black;
+}
+
+.headerUsefulStep {
+	border-top: dotted 2px green;
+	color: green;
+	margin-top: 15px;
+}
+
+.headerUselessStep {
+	border-top: dotted 2px red;
+	color: red;
+	margin-top: 15px;
+}
+
+table[id="mainTable"] {
+	margin-bottom: 0px;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	width: 100%;
+}
+
+table[id="mainTable"] td {
+	padding: 0px;
+}
+
+.headerUsefulStep td[id="right"], .headerUselessStep td[id="right"] {
+	text-align: right;
+}
+
+.headerUsefulStep td[id="left"], .headerUselessStep td[id="left"] {
+	font-weight: bold;
+}
+
+.usefulStep {
+	background-color: rgb(4, 25, 0);
+	font-size: 0.7em;
+	margin: 2px;
+	text-align: center;
+}
+
+.uselessStep {
+	background-color: rgb(64, 0, 0);
+	font-size: 0.7em;
+	margin: 2px;
+	text-align: center;
+}
+
+p {
+	margin: 0px;
+	margin-left: 2px;
 }

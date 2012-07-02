@@ -84,7 +84,19 @@ function displayProblem($id, PDO $db) {
 		if (!empty($pbInfo)) {
 			$catInfo = $db->query("SELECT name FROM galeres_categories WHERE id=" .$pbInfo['id_category'])->fetch();
 			$stepsInfo = $db->query("SELECT * FROM galeres_steps WHERE id_problem=" .secureVar($id). " ORDER BY date")->fetchAll();
+			
+			//We display the name and symptoms of the problem
 			viewProblem($pbInfo['title'], $pbInfo['symptoms'], $pbInfo['solved'], $pbInfo['date'], $catInfo['name'], $stepsInfo, $pbInfo['id']);
+
+			//We display all steps done for solving the problems.
+			$steps = $db->query("SELECT * FROM galeres_steps WHERE id_problem=" .secureVar($id). " ORDER BY date")->fetchAll();
+			$i = 0;
+			foreach($steps as $step) {
+				$i += 1;
+				viewStep($step['action'], $step['reaction'], $step['useful'], $i);
+			}
+			//The "add step" button
+			viewAddStepButton($id);
 		}
 	}
 }
