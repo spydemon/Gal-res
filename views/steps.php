@@ -1,6 +1,6 @@
 <?php
 //{{{viewNewStep
-function viewNewStep($id) {
+function viewNewStep($id, $solved) {
 	if (ROOT_CALL) {
 		?>
 			<fieldset id="newStep">
@@ -21,7 +21,7 @@ function viewNewStep($id) {
 					</tr>
 					<tr>
 						<td><label for="problemSolved">Is problem solved?</label></td>
-						<td><input type="checkbox" name="problemSolved" id="problemSolved" /></td>
+						<td><input type="checkbox" name="problemSolved" id="problemSolved" <?php if ($solved) echo "checked=\"checked\""; ?> /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="submit" value="Create new step" /></td>
