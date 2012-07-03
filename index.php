@@ -98,6 +98,12 @@ else {
 			else
 				createNewStep($_GET['id'], $db);
 			break;
+		case "modificationStep" :
+			if (!empty($_POST['id']))
+				modificationStep($_POST['id'], $db);
+			else
+				modificationStep($_GET['id'], $db);
+			break;
 		default :
 			//If nothing has to be display, we display the list of all problems.
 			displayAllCategories($db);

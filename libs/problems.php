@@ -93,7 +93,7 @@ function displayProblem($id, PDO $db) {
 			$i = 0;
 			foreach($steps as $step) {
 				$i += 1;
-				viewStep($step['action'], $step['reaction'], $step['useful'], $i);
+				viewStep($step['action'], $step['reaction'], $step['useful'], $i, $step['id']);
 			}
 			//The "add step" button
 			viewAddStepButton($id);
