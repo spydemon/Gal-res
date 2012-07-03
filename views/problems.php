@@ -98,6 +98,20 @@ function viewProblem($title, $symptoms, $solved, $date, $category_title, array $
 			<td id="dateProblem">Last update: <strong><?php echo $date;?></strong></td>
 			<td id="catProblem">In category: <strong><?php echo $category_title;?></strong></td>
 		</tr></table>
+	<?php
+		//Toggle into the mode which allow only to show useful steps and it which allow all steps.
+		if (isset($_GET['onlyUseful'])) {
+			$toggleText = "Show all steps for this problem.";
+			$toggleLink = NULL;
+		}
+		else {
+			$toggleText = "Show only useful steps for this problem.";
+			$toggleLink = "&amp;onlyUseful";
+		}
+	?>
+		<div class="toggleText">
+			<a href="index.php?type=viewPb&amp;pb=<?php echo $id.$toggleLink ?>"><?php echo $toggleText ?></a>
+		</div>
 		<p>
 			<?php echo decodeVar($symptoms); ?>
 		</p>

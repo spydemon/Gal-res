@@ -93,7 +93,9 @@ function displayProblem($id, PDO $db) {
 			$i = 0;
 			foreach($steps as $step) {
 				$i += 1;
-				viewStep($step['action'], $step['reaction'], $step['useful'], $i, $step['id']);
+				//We check if user wants to see all steps or only useful ones.
+				if ((isset($_GET['onlyUseful']) && $step['useful']) || (!isset($_GET['onlyUseful'])))
+					viewStep($step['action'], $step['reaction'], $step['useful'], $i, $step['id']);
 			}
 			//The "add step" button
 			viewAddStepButton($id);

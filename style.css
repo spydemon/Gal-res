@@ -263,3 +263,8 @@ p {
 	margin: 0px;
 	margin-left: 2px;
 }
+
+.toggleText {
+	font-size: 0.7em;
+	text-align: right;
+}
