@@ -84,9 +84,10 @@ else {
 																								id_category	INT				NOT NULL,
 																								FOREIGN KEY (id_category) REFERENCES galeres_categories(id)						) ENGINE = INNODB ;";
 
-			$create_steps_base = "CREATE TABLE galeres_steps (					action		MEDIUMTEXT		NOT NULL,
+			$create_steps_base = "CREATE TABLE galeres_steps (					id				INT				NOT NULL PRIMARY KEY AUTO_INCREMENT,
+																								action		MEDIUMTEXT		NOT NULL,
 																								reaction		MEDIUMTEXT		NOT NULL,
-																								date			TIMESTAMP(8),
+																								date			TIMESTAMP(8)	DEFAULT CURRENT_TIMESTAMP,
 																								useful		TINYINT,
 																								id_problem	INT				NOT NULL,
 																								FOREIGN KEY (id_problem) REFERENCES galeres_problems(id)							) ENGINE = INNODB ;";
