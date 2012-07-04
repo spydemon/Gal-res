@@ -58,3 +58,52 @@ function viewMenu(array $categories, array $problems) {
 	}
 }
 //}}}
+
+//{{{viewAdministrationFormular
+function viewAdministrationFormular ($pseudo, $title, $footer, $piwik) {
+	if (USER_ADMIN) {
+		?>
+			<fieldset>
+				<legend>Administration</legend>
+				<form method="post" action="index.php?type=admin">
+					<table>
+						<tr>
+							<td><label for="pseudo">Pseudo:</label></td>
+							<td><input type="text" name="pseudo" id="pseudo" value="<?php echo $pseudo; ?>" /></td>
+						</tr>
+						<tr>
+							<td><label for="psw1">New password:</label></td>
+							<td><input type="password" name="psw1" id="psw1" /></td>
+						</tr>
+						<tr>
+							<td><label for="psw2">Again:</label></td>
+							<td><input type="password" name="psw2" id="psw2" /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><em>Keep this fields empty if you don't want to change the password.</em></td>
+						</tr>
+						<tr>
+							<td><label for="title">Title:</label></td>
+							<td><input type="text" name="title" id="title" value="<?php echo $title; ?>" /></td>
+						</tr>
+						<tr>
+							<td><label for="fooder">Footer:</label></td>
+							<td><input type="text" name="fooder" id="fooder" value="<?php echo $footer; ?>" /></td>
+						</tr>
+						<tr>
+							<td><label for="piwik">Piwik:</label></td>
+							<td><textarea id="piwik" name="piwik"><?php echo $piwik; ?></textarea></td>
+						</tr>
+						<tr>
+							<td colspan="2"><em>Note: I make ads for Piwiki because it's a free software, but you can use whatever you want for analytic system like Google Analytic.</em></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="submit" value="Update" /></td>
+						</tr>
+					</table>
+				</form>
+			</fieldset>
+		<?php
+	}
+}
+//}}}

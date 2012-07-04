@@ -55,3 +55,39 @@ function decodeVar ($var) {
 	return html_entity_decode($var, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 }
 //}}}
+
+//{{{administration
+function administration (PDO $db) {
+	if (USER_ADMIN) {
+		//Update values if a formular was already sent.
+		if (!empty($_POST)) {
+			//Modification of the password.
+			if (!empty($_POST['psw1'])) {
+				if ($_POST['psw1'] == $_POST['psw2']) 
+					$db->query("UPDATE galeres_admin SET var_value='" .sha1($_POST['psw1']). "' WHERE var_name='psw'");
+				else 
+					echo "<p><b>Warning: the password wasn't change because strings written in both fields are different.</b></p>\n";
+			}
+			//Modification of others values.
+			//First, we check if the pseudo isn't empty
+			if (!empty($_POST['pseudo'])) {
+				$modifValues = array('pseudo', 'title', 'fooder', 'piwik');
+				foreach ($modifValues as $value)
+					$db->query("UPDATE galeres_admin SET var_value='" .secureVar($_POST[$value]). "' WHERE var_name='" .$value. "'");
+			}
+			else {
+				echo "<p><b>You can't have a empty pseudo.</b></p>\n";
+			}
+		}
+
+		//The formular
+		$adminData = $db->query("SELECT * FROM galeres_admin")->fetchAll();
+		$modifData = array('pseudo', 'title', 'fooder', 'piwik');
+		foreach ($adminData as $data) {
+			if (in_array($data['var_name'], $modifData))
+				$valuesData[$data['var_name']] = $data['var_value'];
+		}
+		viewAdministrationFormular($valuesData['pseudo'], $valuesData['title'], $valuesData['fooder'], $valuesData['piwik']);
+	}
+}
+//}}}

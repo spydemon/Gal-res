@@ -63,14 +63,15 @@ else {
 	else if (!empty($_GET['type'])) $type = $_GET['type'];
 
 	switch ($type) {
-		case "admin" :
-			break;
 		case "adminCategories" :
 			//If the admin want to add or manage categories
 			manageCategories($db);
 			break;
 		case "adminProblems" :
 			manageProblems($db);
+			break;
+		case "admin" :
+			administration($db);
 			break;
 		case "auth" :
 			//If we send the authentication formular.
