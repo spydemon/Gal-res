@@ -91,3 +91,16 @@ function administration (PDO $db) {
 	}
 }
 //}}}
+
+//{{{displayFooter
+function displayFooter (PDO $db) {
+	$footer = $db->query("SELECT var_value FROM galeres_admin WHERE var_name='fooder'")->fetch();
+	viewFooter($footer['var_value']);
+
+	//We only add the analytic traker if the user is not the admin. So we track only visitors.
+	if (!USER_ADMIN) {
+		$piwik = $db->query("SELECT var_value FROM galeres_admin WHERE var_name='piwik'")->fetch();
+		echo decodeVar($piwik['var_value']);
+	}
+}
+//}}}

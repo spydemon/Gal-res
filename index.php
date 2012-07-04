@@ -111,13 +111,5 @@ else {
 	}
 }
 
-echo "\t\t\t\t</section>\n";
-echo "\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td>\n\t\t\t</td>\n";
-echo "\t\t\t<td>\n";
-echo "\t\t\t\t<footer>\n";
-echo "\t\t\t\t\t<em>Super fooder.</em>\n";
-echo "\t\t\t\t</footer>\n";
-echo "\t\t\t</td>\n\t\t</tr>\n</table>\n";
-
-echo "\t</body>\n";
-echo "</html>\n";
+//Finaly, we print the footer, with the analytic tracker.
+displayFooter($db);

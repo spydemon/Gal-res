@@ -107,3 +107,32 @@ function viewAdministrationFormular ($pseudo, $title, $footer, $piwik) {
 	}
 }
 //}}}
+
+//{{{ viewFooter
+function viewFooter($message) {
+	if (ROOT_CALL) {
+		?>
+				</section>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+				<footer>
+		<?php
+				echo decodeVar($message);
+		?>
+					<div class="miniFooter">
+						<a href="https://github.com/spydemon/Gal-res">Galères v0.99</a> - July 2012
+					</div>
+				</footer>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
+		<?php
+	}
+}
+//}}}
