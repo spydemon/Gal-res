@@ -33,7 +33,7 @@ if (CONFIG_EXIST) {
 }
 else {
 	//If database doesn't exist, we "hardcreate" the title and footer of the page.
-	$adminInfos['title'] = 'Galèâre v1.0';
+	$adminInfos['title'] = 'Galères v1.0';
 	$adminInfos['fooder'] = 'I hope I\'ll survive…';
 }
 

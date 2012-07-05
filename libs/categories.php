@@ -78,7 +78,7 @@ function getCategoriesName(PDO $db) {
 function displayCategory($cat, PDO $db) {
 	if (is_numeric($cat)) {
 		$name_cat = $db->query("SELECT name FROM galeres_categories WHERE id = '" .secureVar($cat). "'")->fetchAll();
-		$display = $db->query("SELECT * FROM galeres_problems WHERE id_category = '" .secureVar($cat). "' ORDER BY date, title")->fetchAll();
+		$display = $db->query("SELECT * FROM galeres_problems WHERE id_category = '" .secureVar($cat). "' ORDER BY position, date DESC")->fetchAll();
 		if (empty($display)) 
 			displayAllCategories($db);
 		else 

@@ -45,7 +45,7 @@ function createNewProblem(PDO $db) {
 
 //{{{getProblems
 function getProblems(PDO $db) {
-	return $db->query("SELECT * FROM galeres_problems ORDER BY position, date")->fetchAll();
+	return $db->query("SELECT * FROM galeres_problems ORDER BY position, date DESC")->fetchAll();
 }
 //}}}
 
