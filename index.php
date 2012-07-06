@@ -23,7 +23,12 @@ define(CONFIG_EXIST, check_config());
 
 if (CONFIG_EXIST) {
 	include ('config.php');
-	$db = new PDO('mysql:host=' .BDD_HOSTNAME. ';dbname=' .BDD_BDDNAME, BDD_USERNAME, BDD_PASSWORD);
+	try {
+		$db = new PDO('mysql:host=' .BDD_HOSTNAME. ';dbname=' .BDD_BDDNAME, BDD_USERNAME, BDD_PASSWORD);
+	}
+	catch (Exception $e) {
+		echo "It's something wrong with the database access… <br />" . $e->getMessage();
+	}
 
 	//We fetch all datas in the admin database.
 	$adminInfos = fetchAdmin($db);
@@ -40,18 +45,21 @@ else {
 viewDoctype($adminInfos['title']);
 viewHeader($adminInfos['title']);
 
-//We print the login formular, or the admin pannel.
-if (USER_ADMIN) {
-	viewMenuAdmin();
-}
-else {
-	viewMenuNonAdmin();
-}
-//And after categories list.
-$categoriesList = $db->query("SELECT * FROM galeres_categories ORDER BY position, name")->fetchAll();
-$problemList = getProblems($db);
+if (CONFIG_EXIST) {
+	//We print the login formular, or the admin pannel.
+	if (USER_ADMIN) {
+		viewMenuAdmin();
+	}
+	else {
+		viewMenuNonAdmin();
+	}
 
-viewMenu($categoriesList, $problemList);
+	//And after categories list.
+	$categoriesList = $db->query("SELECT * FROM galeres_categories ORDER BY position, name")->fetchAll();
+	$problemList = getProblems($db);
+
+	viewMenu($categoriesList, $problemList);
+}
 
 // BODY OF THE PAGE //
 //If config.php doesn't exit, we create it.
@@ -87,7 +95,10 @@ else {
 			break;
 		case "modifProblem" :
 			//If user is the admin and want to modify a category.
-			modifProblem($_GET['id'], $db);
+			if (!empty($_POST))
+				modifProblem($_POST['id'], $db);
+			else 
+				modifProblem($_GET['id'], $db);
 			break;
 		case "viewPb" :
 			displayProblem($_GET['pb'], $db);
@@ -111,5 +122,7 @@ else {
 	}
 }
 
-//Finaly, we print the footer, with the analytic tracker.
-displayFooter($db);
+if (CONFIG_EXIST) {
+	//Finaly, we print the footer, with the analytic tracker.
+	displayFooter($db);
+}

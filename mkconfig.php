@@ -16,6 +16,7 @@ $form_register |= !empty($_POST['name_bdd'])			<< 6;
 
 //{{{If all field of the formular aren't complete. We print the formular
 if ($form_register != 0x7f) {
+	echo "<tr><td>\n";
 	echo "Hayoï! It seems that you haven't configure your installation for the moment. <br />\nWe'll make that now, together :-)<br /><br />\n";
 	//If $form_register isn't egal to zero, it suposed that the formular was already send, but not with all the information.
 	if ($form_register != 0)
@@ -46,6 +47,7 @@ if ($form_register != 0x7f) {
 	echo "\t\t<tr><td colspan='2'><input type='submit' value='Gooooo!' /></tr>\n";
 	echo "\t</table>\n";
 	echo "</form>\n";
+	echo "</td></tr></table>";
 }
 //}}} 
 
@@ -82,7 +84,8 @@ else {
 																								position 	INT,
 																								solved		TINYINT,
 																								id_category	INT				NOT NULL,
-																								FOREIGN KEY (id_category) REFERENCES galeres_categories(id)						) ENGINE = INNODB ;";
+																								FOREIGN KEY fk_id_category (id_category) REFERENCES galeres_categories(id)
+																								ON DELETE CASCADE																				) ENGINE = INNODB ;";
 
 			$create_steps_base = "CREATE TABLE galeres_steps (					id				INT				NOT NULL PRIMARY KEY AUTO_INCREMENT,
 																								action		MEDIUMTEXT		NOT NULL,
@@ -90,7 +93,8 @@ else {
 																								date			TIMESTAMP(8)	DEFAULT CURRENT_TIMESTAMP,
 																								useful		TINYINT,
 																								id_problem	INT				NOT NULL,
-																								FOREIGN KEY (id_problem) REFERENCES galeres_problems(id)							) ENGINE = INNODB ;";
+																								FOREIGN KEY fk_id_problem (id_problem) REFERENCES galeres_problems(id)	
+																								ON DELETE CASCADE																				) ENGINE = INNODB ;";
 
 			$datas->exec($create_admin_base);
 			$datas->exec($create_categories_base);
@@ -110,7 +114,7 @@ else {
 			$config[2] = "define('BDD_USERNAME', '" . $_SPOST['username_bdd'] . "');\n";
 			$config[3] = "define('BDD_PASSWORD', '" . $_SPOST['psw_bdd'] . "');\n";
 			$config[4] = "define('BDD_BDDNAME', '" . $_SPOST['name_bdd']. "');\n";
-			$config[4] = "?>\n";
+			$config[5] = "?>\n";
 
 			$file = fopen('config.php', 'w');
 

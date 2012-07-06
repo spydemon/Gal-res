@@ -35,12 +35,9 @@ function fetchAdmin(PDO $db) {
 //{{{check_config
 function check_config() {
 	//Verification if config.php exists. If the file doesn't exist, we have to create it and to create the database also
-	if (!file_exists('config.php')) {
-		return false;
-	}
-	else {
+	if (file_exists('config.php'))
 		return true;
-	}
+	return false;
 }
 //}}}
 

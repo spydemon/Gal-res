@@ -57,9 +57,14 @@ function modifProblem($id, PDO $db) {
 			$data = $db->query("SELECT * FROM galeres_problems WHERE id = '" .secureVar($id). "'")->fetch();
 			viewDisplayModificationProblem($data['id'], $data['title'], $data['symptoms'], $data['position'], $data['solved']);
 		}
+
 		//If user want to send the formular and apply modifications to the problem.
-		elseif (!empty($_POST)) {
-			if (empty($_POST['title']) || !is_numeric($_POST['position']) || empty($_POST['symptoms'])) {
+		elseif (!empty($_POST) && is_numeric($id)) {
+			//If user want to delete the problem
+			if ($_POST['delete'] == "on") {
+				$db->query("DELETE FROM galeres_problems WHERE id = '" .secureVar($id). "'") or die (print_r($db->errorInfo()));
+			}
+			elseif (empty($_POST['title']) || !is_numeric($_POST['position']) || empty($_POST['symptoms'])) {
 				echo "You have to write valid datas in fields. <br />";
 			}
 			else {

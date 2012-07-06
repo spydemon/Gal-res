@@ -76,6 +76,10 @@ function viewDisplayModificationProblem($id, $title, $symptoms, $position, $solv
 							<td><label for="solved">Is the problem solved?</label></td>
 							<td><input type="checkbox" name="solved" id="solved" <?php if($solved == 1) echo "checked=\"checked\""; ?> /></td>
 						</tr>	
+						<tr>
+							<td><label for="delete">Delete the problem?</label></td>
+							<td><input type="checkbox" name="delete" id="delete" /></td>
+						</tr>
 						<input type="hidden" name="id" value="<?php echo $id ?>" />
 						<input type="hidden" name="type" value="modifProblem" />
 						<tr>
