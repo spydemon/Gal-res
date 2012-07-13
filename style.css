@@ -272,3 +272,13 @@ p {
 .miniFooter {
 	font-size: 0.6em;
 }
+
+.code {
+	border: solid 1px rgb(22, 22, 22);
+	font-family: "Courier";
+	font-size: 0.8em;
+	font-weight: bold;
+	margin-left: 5px;
+	padding: 3px;
+	white-space: pre-line;
+}
