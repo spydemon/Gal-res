@@ -12,14 +12,14 @@ include_once('libs/steps.php');
 include_once ('views.php');
 
 //Define use to know if functions are call in the index.php file or not.
-define(ROOT_CALL, true);
+define("ROOT_CALL", true);
 
 //We remove magic quotes
 //I need this script because I don't have access to the php.ini and pass by the .htaccess file causes a 500 error.
 removeMagicQuotes();
 
 //We check if config.php exist, or if it the first time that the application is running.
-define(CONFIG_EXIST, check_config());
+define("CONFIG_EXIST", check_config());
 
 if (CONFIG_EXIST) {
 	include ('config.php');
@@ -34,7 +34,7 @@ if (CONFIG_EXIST) {
 	$adminInfos = fetchAdmin($db);
 
 	//We check if the user is logged in.
-	define(USER_ADMIN, checkAdmin($adminInfos));
+	define("USER_ADMIN", checkAdmin($adminInfos));
 }
 else {
 	//If database doesn't exist, we "hardcreate" the title and footer of the page.
@@ -69,6 +69,7 @@ else {
 	//We catch the kind of page to display (by POST or GET variable).
 	if (!empty($_POST['type'])) $type = $_POST['type'];
 	else if (!empty($_GET['type'])) $type = $_GET['type'];
+	else $type = "index";
 
 	switch ($type) {
 		case "adminCategories" :
@@ -116,6 +117,7 @@ else {
 			else
 				modificationStep($_GET['id'], $db);
 			break;
+		case "index" :
 		default :
 			//If nothing has to be display, we display the list of all problems.
 			displayAllCategories($db);

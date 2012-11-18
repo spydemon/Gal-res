@@ -26,7 +26,7 @@ function viewHeader($title) {
 			<tr>
 				<td colspan='2'>
 					<header>
-						<?php echo $title ?>
+						<a href="index.php"><?php echo $title ?></a>
 					</header>
 				</td>
 			</tr>

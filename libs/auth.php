@@ -7,12 +7,18 @@ function authentication(array $adminInfos, PDO $db) {
 	if (CONFIG_EXIST) {
 		if (	($_POST['pseudo'] == $adminInfos['pseudo']) &&
 				(sha1($_POST['psw']) == $adminInfos['psw']) ) {
+			//Log of the connexion
+			logCon(TRUE);
 			//If the user is logged now, we update the "connection string in the database".
 			$string = updateIdString($db);
 			//But also the last connection time and the user ip address.
 			updateLastConnectionTimeAndIp($db);
 			//We activate the session.
 			$_SESSION[galeres] = $string;
+		}
+		else {
+			//We log that the user failed the authentication
+			logCon(FALSE);
 		}
 	}
 }
@@ -57,3 +63,19 @@ function logout(PDO $db) {
 	$_SESSION['galere'] = '';
 	$db->query("UPDATE galeres_admin SET var_value='' WHERE var_name='idstring'");
 }
+//}}}
+
+//{{{log
+function logCon($ok) {
+	if ($ok) {
+		$string = "Accepted password for " .htmlentities($_POST['pseudo']). " from {$_SERVER['REMOTE_ADDR']}";
+		$log_level = LOG_INFO;
+	}
+	else {
+		$string = "Authentication failure for " .htmlentities($_POST['pseudo']). " from {$_SERVER['REMOTE_ADDR']}";
+		$log_level = LOG_NOTICE;
+	}
+	openlog('web-galeres('.$_SERVER['HTTP_HOST'].')',LOG_NDELAY|LOG_PID,LOG_AUTH);
+	syslog($log_level, $string);
+}
+
